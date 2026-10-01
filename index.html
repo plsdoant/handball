@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Handball</title>
+  <meta name="description" content="Tilt your head back and blow to release a chrome ball, then bat it around with your hands and arms." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main id="stage" aria-label="Camera stage">
+    <video id="video" playsinline muted></video>
+    <div class="vignette"></div>
+    <canvas id="under"></canvas>
+    <canvas id="balls"></canvas>
+    <canvas id="fx"></canvas>
+  </main>
+
+  <header class="hud hud-top">
+    <nav class="actions">
+      <button class="icon-btn glass" id="btn-skeleton" title="Toggle skeleton (S)" aria-pressed="true">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><path d="M12 7v6m0 0-3.5 7M12 13l3.5 7M5.5 10.5 12 8.5l6.5 2"/></svg>
+      </button>
+      <button class="icon-btn glass" id="btn-sound" title="Toggle sound (M)" aria-pressed="true">
+        <svg viewBox="0 0 24 24" class="on"><path d="M4 9.5h3l5-4v13l-5-4H4z"/><path d="M15.5 9.5a3.5 3.5 0 0 1 0 5M18 7a7 7 0 0 1 0 10"/></svg>
+        <svg viewBox="0 0 24 24" class="off"><path d="M4 9.5h3l5-4v13l-5-4H4z"/><path d="m16 9.5 5 5m0-5-5 5"/></svg>
+      </button>
+      <button class="icon-btn glass" id="btn-clear" title="Clear balls (C)">
+        <svg viewBox="0 0 24 24"><path d="M5 7h14M10 7V5h4v2M7 7l1 12.5h8L17 7"/></svg>
+      </button>
+      <button class="icon-btn glass" id="btn-settings" title="Physics settings" aria-expanded="false">
+        <svg viewBox="0 0 24 24"><path d="M4 7h9m4 0h3M4 17h3m4 0h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>
+      </button>
+      <button class="icon-btn glass" id="btn-full" title="Fullscreen (F)">
+        <svg viewBox="0 0 24 24"><path d="M4 9V4h5m6 0h5v5M4 15v5h5m6 0h5v-5"/></svg>
+      </button>
+    </nav>
+  </header>
+
+  <aside class="panel glass" id="settings" hidden>
+    <h2>Physics</h2>
+    <label class="row"><span>Gravity</span><output data-for="gravity"></output>
+      <input type="range" data-setting="gravity" min="0.3" max="3" step="0.1" /></label>
+    <label class="row"><span>Bounciness</span><output data-for="bounce"></output>
+      <input type="range" data-setting="bounce" min="0.2" max="0.95" step="0.01" /></label>
+    <label class="row"><span>Ball size</span><output data-for="ballSize"></output>
+      <input type="range" data-setting="ballSize" min="0.6" max="1.8" step="0.05" /></label>
+    <label class="row"><span>Max balls</span><output data-for="maxBalls"></output>
+      <input type="range" data-setting="maxBalls" min="1" max="30" step="1" /></label>
+    <label class="toggle"><input type="checkbox" data-setting="wind" /><span>Breath pushes balls</span></label>
+    <h2>Gesture</h2>
+    <label class="row"><span>Head tilt needed</span><output data-for="tiltDeg"></output>
+      <input type="range" data-setting="tiltDeg" min="4" max="25" step="1" /></label>
+    <label class="row"><span>Blow threshold</span><output data-for="blowThreshold"></output>
+      <input type="range" data-setting="blowThreshold" min="0.2" max="0.85" step="0.01" /></label>
+    <div class="panel-actions">
+      <button class="btn small" id="btn-recal">Recalibrate head</button>
+      <button class="btn small ghost" id="btn-reset">Reset</button>
+    </div>
+  </aside>
+
+  <section class="hud hud-bottom" id="hud-bottom">
+    <p class="hint" id="hint"></p>
+  </section>
+
+  <p class="keys" id="keys"><kbd>Space</kbd> spawn <kbd>C</kbd> clear <kbd>S</kbd> skeleton <kbd>D</kbd> debug <kbd>H</kbd> hide all</p>
+  <pre class="debug glass" id="debug" hidden></pre>
+
+  <div class="intro" id="intro">
+    <button class="btn primary" id="btn-start" aria-live="polite">Start camera</button>
+  </div>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
